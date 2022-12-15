@@ -12,4 +12,27 @@ const getMovie = (req, res) => {
         })
 }
 
-module.exports = { getMovie }
+const addMovie = (req, res) => {
+    if(JSON.stringify(req.body) == '{}') return res.status(406).end()
+
+    const { nombre, poster, precio, asientos, horarios } = req.body
+
+    if(!(nombre && poster && precio && asientos && horarios)) {
+        return res.status(406).json({ error: 'Todos los campos son necesarios' })
+    }
+    
+    const newMovie = new Movie({
+        nombre: nombre,
+        img: poster,
+        asientos: asientos,
+        precio: precio,
+        horarios: horarios
+    })
+    newMovie.save()
+        .then(result => {
+            if(result) return res.status(201).end()
+            
+            return res.status(404).end()
+        })
+}
+module.exports = { getMovie, addMovie }
