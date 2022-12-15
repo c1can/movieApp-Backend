@@ -44,6 +44,8 @@ const getMovieById = (req, res, next) => {
             return result 
                 ? res.status(200).json(result)
                 : res.status(404).json({error: 'id no encontrado'})
-        }).catch(error => console.log(error.name))
+        }).catch((error) => {
+            next(error)
+        })
 } 
 module.exports = { getMovie, addMovie, getMovieById }
