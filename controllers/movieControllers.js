@@ -72,4 +72,15 @@ const editMovie = (req, res, next) => {
     return res.status(400).json({ error: 'ingresa al menos un dato!' })
 
 }
-module.exports = { getMovie, addMovie, getMovieById, editMovie }
+
+const deleteMovie = (req, res, next) => {
+    const { id } = req.params
+ 
+    Movie.findByIdAndDelete(id)
+        .then(result => {
+            return result
+                ? res.status(301).end()
+                : res.status(404).json({error: 'id no encontrado'})
+        }).catch(next)
+}
+module.exports = { getMovie, addMovie, getMovieById, editMovie, deleteMovie }
