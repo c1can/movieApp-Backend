@@ -48,4 +48,28 @@ const getMovieById = (req, res, next) => {
             next(error)
         })
 } 
-module.exports = { getMovie, addMovie, getMovieById }
+
+const editMovie = (req, res, next) => {
+    const { id } = req.params
+    const { nombre, poster, asientos, horarios, precio } = req.body
+
+    if(nombre || poster || asientos || horarios || precio) {
+        const editedNote = {
+            nombre: nombre,
+            img: poster,
+            asientos: asientos,
+            horarios: horarios,
+            precio: precio
+        }
+        Movie.findByIdAndUpdate(id, editedNote)
+            .then(result => {
+                return result
+                    ? res.status(200).end()
+                    : res.status(404).json({error: 'id no encontrado'})
+            }).catch(next)
+        return
+    }
+    return res.status(400).json({ error: 'ingresa al menos un dato!' })
+
+}
+module.exports = { getMovie, addMovie, getMovieById, editMovie }
