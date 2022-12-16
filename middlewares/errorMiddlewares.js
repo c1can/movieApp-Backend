@@ -1,5 +1,5 @@
 const pageNotFound = (req, res) => {
-    res.status(404).send('<p>Page not Found</p>')
+    return res.status(404).end()
 }
 
 const handleError = (error, req, res, next) => {
