@@ -10,6 +10,10 @@ const registerUser = async(req, res, next) => {
 
     if(!(nombre && correo && contraseña && telefono)) return res.status(400).json({ error: 'Ingresa los datos necesarios!' })
 
+    const userExist = await User.findOne({correo: correo})
+
+    if(userExist) return res.status(406).json({ error: 'usuario ya registrado' })
+
     try {
         const encryptedPassword = await bcrypt.hash(contraseña, 10)
         const newUser = new User({
