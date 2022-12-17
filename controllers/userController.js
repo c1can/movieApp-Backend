@@ -28,5 +28,28 @@ const registerUser = async(req, res, next) => {
     }
 }
 
+const loginUser = async(req, res) => {
+    const { correo, contraseña } = req.body
 
-module.exports = { registerUser }
+    if(JSON.stringify(req.body) == '{}') return res.status(200).json({error: 'ingresa tus datos!'})
+
+
+    if(!(correo && contraseña)) return res.status(400).json({error: 'ingresa todos los datos!'})
+
+    try {
+        const matchUser = await User.findOne({correo: correo}).select('contraseña nombre apellido correo creditos') 
+        if(matchUser.length == 0) return res.status(400).json({ error: 'usuario no registrado.' })
+
+        const decrypt = await bcrypt.compare(contraseña, matchUser.contraseña)
+
+        const userData = matchUser.set('contraseña', undefined, {strict: false})
+      
+        if(decrypt) res.status(200).json(userData)
+    } catch (error) {
+        return res.status(401).json({ error: 'constraseña invalida' })
+    }
+
+}
+
+
+module.exports = { registerUser, loginUser }
