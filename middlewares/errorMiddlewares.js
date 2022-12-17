@@ -3,6 +3,7 @@ const pageNotFound = (req, res) => {
 }
 
 const handleError = (error, req, res, next) => {
+    console.log(error.name)
     if(error.name === 'CastError') return res.status(400).json({error: 'id mal formado'})
     return res.status(500).end()
 }
