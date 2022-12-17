@@ -30,5 +30,16 @@ const editClientes = (req, res, next) => {
     }
 }
 
+const deleteCliente = (req, res, next) => {
+    const { id } = req.params
 
-module.exports = { getClientes, editClientes }
+    User.findByIdAndDelete(id)
+        .then(result => {
+            return result
+                ? res.status(301).json({message: 'cliente eliminado'})
+                : res.status(404).json({ error: 'id no encontrado' })
+        }).catch(next)
+}
+
+
+module.exports = { getClientes, editClientes, deleteCliente }
