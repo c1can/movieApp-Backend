@@ -42,13 +42,12 @@ const loginUser = async(req, res) => {
 
     try {
         const matchUser = await User.findOne({correo: correo}).select('contraseña nombre apellido correo creditos') 
-        if(matchUser.length == 0) return res.status(400).json({ error: 'usuario no registrado.' })
+        if(!matchUser) return res.status(400).json({ error: 'usuario no registrado.' })
 
         const decrypt = await bcrypt.compare(contraseña, matchUser.contraseña)
 
-        const userData = matchUser.set('contraseña', undefined, {strict: false})
+        if(decrypt) res.status(200).json(matchUser)
       
-        if(decrypt) res.status(200).json(userData)
     } catch (error) {
         return res.status(401).json({ error: 'constraseña invalida' })
     }
