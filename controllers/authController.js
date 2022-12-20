@@ -37,7 +37,6 @@ const loginUser = async(req, res) => {
 
     if(JSON.stringify(req.body) == '{}') return res.status(200).json({error: 'ingresa tus datos!'})
 
-
     if(!(correo && contraseña)) return res.status(400).json({error: 'ingresa todos los datos!'})
 
     try {
