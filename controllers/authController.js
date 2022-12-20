@@ -32,7 +32,7 @@ const registerUser = async(req, res, next) => {
     }
 }
 
-const loginUser = async(req, res) => {
+const loginUser = async(req, res, next) => {
     const { correo, contraseña } = req.body
 
     if(JSON.stringify(req.body) == '{}') return res.status(200).json({error: 'ingresa tus datos!'})
@@ -46,9 +46,10 @@ const loginUser = async(req, res) => {
         const decrypt = await bcrypt.compare(contraseña, matchUser.contraseña)
 
         if(decrypt) res.status(200).json(matchUser)
+        return res.status(401).json({ error: 'contraseña invalida' })
       
     } catch (error) {
-        return res.status(401).json({ error: 'constraseña invalida' })
+        next(error)
     }
 
 }
