@@ -44,7 +44,6 @@ const apiLogin = async (req, res, next) => {
     try {
         const checkPassword = await bcrypt.compare(password, matchUser.password)
 
-        console.log(checkPassword)
 
         if(checkPassword) return res.status(200).json(matchUser.token)
 

@@ -2,7 +2,9 @@ const { getMovie, addMovie, getMovieById, editMovie, deleteMovie } = require('..
 const { registerUser, loginUser } = require('../controllers/authController')
 const { getClientes, editClientes, deleteCliente } = require('../controllers/clientesController')
 const { apiRegister, apiLogin } = require('../controllers/apiController')
+const validateRol = require('../middlewares/validateRol')
 const { handleError, pageNotFound } = require('../middlewares/errorMiddlewares')
+const auth = require('../middlewares/authApi')
 
 
 const routes = (app) => {
@@ -16,7 +18,7 @@ const routes = (app) => {
     app.post('/api/register', registerUser)
     app.post('/api/login', loginUser)
     //------Clientes-------------
-    app.get('/api/clientes', getClientes)
+    app.get('/api/clientes', auth, validateRol, getClientes)
     app.put('/api/clientes/:id', editClientes)
     app.delete('/api/clientes/:id', deleteCliente)
     //-------Cartelera-----------
