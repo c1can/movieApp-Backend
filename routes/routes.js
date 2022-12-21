@@ -19,14 +19,14 @@ const routes = (app) => {
     app.post('/api/login', loginUser)
     //------Clientes-------------
     app.get('/api/clientes', auth, validateRol, getClientes)
-    app.put('/api/clientes/:id', editClientes)
-    app.delete('/api/clientes/:id', deleteCliente)
+    app.put('/api/clientes/:id',auth, validateRol, editClientes)
+    app.delete('/api/clientes/:id', auth, validateRol, deleteCliente)
     //-------Cartelera-----------
     app.get('/api/cartelera', getMovie)
     app.get('/api/cartelera/:id', getMovieById)
-    app.post('/api/cartelera', addMovie)
-    app.put('/api/cartelera/:id', editMovie)
-    app.delete('/api/cartelera/:id', deleteMovie)
+    app.post('/api/cartelera', auth, validateRol, addMovie)
+    app.put('/api/cartelera/:id', auth, validateRol, editMovie)
+    app.delete('/api/cartelera/:id', auth, validateRol, deleteMovie)
     //------HandleError----------
     app.use(pageNotFound)
     app.use(handleError)
