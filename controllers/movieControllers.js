@@ -15,15 +15,16 @@ const getMovie = (req, res) => {
 const addMovie = (req, res) => {
     if(JSON.stringify(req.body) == '{}') return res.status(406).json({ error: 'ingresa los datos' })
 
-    const { nombre, poster, precio, asientos, horarios } = req.body
+    const { nombre, poster, downsized_poster, precio, asientos, horarios } = req.body
 
-    if(!(nombre && poster && precio && asientos && horarios)) {
+    if(!(nombre && poster && precio && asientos && horarios && downsized_poster)) {
         return res.status(406).json({ error: 'Todos los campos son necesarios' })
     }
     
     const newMovie = new Movie({
         nombre: nombre,
         img: poster,
+        img_downsized: downsized_poster,
         asientos: asientos,
         precio: precio,
         horarios: horarios
@@ -51,12 +52,13 @@ const getMovieById = (req, res, next) => {
 
 const editMovie = (req, res, next) => {
     const { id } = req.params
-    const { nombre, poster, asientos, horarios, precio } = req.body
+    const { nombre, poster, downsized_poster, asientos, horarios, precio } = req.body
 
     if(nombre || poster || asientos || horarios || precio) {
         const editedNote = {
             nombre: nombre,
             img: poster,
+            img_downsized: downsized_poster,
             asientos: asientos,
             horarios: horarios,
             precio: precio
