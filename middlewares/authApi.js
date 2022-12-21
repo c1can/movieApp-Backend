@@ -6,7 +6,7 @@ const auth = (req, res, next) => {
 
     try {
         const decode = jwt.verify(token, process.env.JWT_KEY)
-        if(decode) next()
+        if(decode) return next()
     } catch (error) {
         return res.status(406).json({ error: 'token invalido' })
     }

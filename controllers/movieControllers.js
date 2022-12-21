@@ -13,7 +13,7 @@ const getMovie = (req, res) => {
 }
 
 const addMovie = (req, res) => {
-    if(JSON.stringify(req.body) == '{}') return res.status(406).end()
+    if(JSON.stringify(req.body) == '{}') return res.status(406).json({ error: 'ingresa los datos' })
 
     const { nombre, poster, precio, asientos, horarios } = req.body
 
