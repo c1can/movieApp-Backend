@@ -1,5 +1,6 @@
 const User = require('../models/UserModel')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 
 const registerUser = async(req, res, next) => {
@@ -16,6 +17,7 @@ const registerUser = async(req, res, next) => {
 
     try {
         const encryptedPassword = await bcrypt.hash(contraseña, 10)
+        const token = jwt.sign({ correo: correo }, process.env.JWT_KEY)
         const newUser = new User({
             nombre: nombre,
             apellido: apellido,
@@ -23,10 +25,11 @@ const registerUser = async(req, res, next) => {
             correo: correo,
             telefono: telefono,
             rol: 'usuario',
+            token: token,
             creditos: 300
         })
         await newUser.save()
-        return res.status(201).json({response: 'usuario registrado!'})
+        return res.status(201).json({response: 'usuario registrado!'}) //en el front hacer un redirect a login
     } catch (error) {
         next(error)
     }
