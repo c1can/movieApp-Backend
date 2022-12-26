@@ -43,7 +43,7 @@ const loginUser = async(req, res, next) => {
     if(!(correo && contraseña)) return res.status(400).json({error: 'ingresa todos los datos!'})
 
     try {
-        const matchUser = await User.findOne({correo: correo}).select('contraseña nombre apellido correo creditos') 
+        const matchUser = await User.findOne({correo: correo}).select('contraseña nombre apellido correo creditos rol') 
         if(!matchUser) return res.status(400).json({ error: 'usuario no registrado.' })
 
         const decrypt = await bcrypt.compare(contraseña, matchUser.contraseña)
