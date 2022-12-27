@@ -24,7 +24,7 @@ const editClientes = (req, res, next) => {
         User.findByIdAndUpdate(id, editedUser)
             .then(result => {
                 return result
-                    ? res.status(200).json({message: 'usuario editado exitosamente'})
+                    ? res.status(200).json({success: 'usuario editado exitosamente'})
                     : res.status(404).json({error: 'id no encontrado'})
             }).catch(next)
     }
