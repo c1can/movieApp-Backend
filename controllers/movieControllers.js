@@ -31,7 +31,7 @@ const addMovie = (req, res) => {
     })
     newMovie.save()
         .then(result => {
-            if(result) return res.status(201).end()
+            if(result) return res.status(201).json({ success: 'pelicula agregada correctamente' })
             
             return res.status(404).end()
         })
