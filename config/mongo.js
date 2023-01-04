@@ -6,7 +6,9 @@ const dbConnection = () => {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
-        .then(() => console.log('Conectado!'))
+        .then(() => {
+            console.log('Conectado!')
+        })
         .catch(() => console.log('Error'))
 }
 
