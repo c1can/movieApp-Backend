@@ -21,7 +21,7 @@ const routes = (app) => {
     app.get('/api/cartelera', getMovie)
     app.get('/api/cartelera/:id', getMovieById)
     app.post('/api/cartelera', auth, validateRol, addMovie)
-    app.put('/api/cartelera/:id', auth, validateRol, editMovie)
+    app.put('/api/cartelera/:id', editMovie)
     app.delete('/api/cartelera/:id', auth, validateRol, deleteMovie)
     //------HandleError----------
     app.use(pageNotFound)

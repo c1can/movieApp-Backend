@@ -45,6 +45,10 @@ const getMovieById = (req, res, next) => {
         })
 } 
 
+
+//TODO: CHANGE NAME TO BE MORE SPECIFIC,
+//CAUSE IM USING THIS CONTROLLER FOR 
+//BUYING TICKETS NOT FOR EDITING MOVIES
 const editMovie = (req, res, next) => {
     const { id } = req.params
     const { nombre, poster, horarios, precio } = req.body
@@ -59,7 +63,7 @@ const editMovie = (req, res, next) => {
         Movie.findByIdAndUpdate(id, editedNote)
             .then(result => {
                 return result
-                    ? res.status(200).end()
+                    ? res.status(200).json({ succes: 'asiento reservado!' })
                     : res.status(404).json({error: 'id no encontrado'})
             }).catch(next)
         return
