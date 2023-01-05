@@ -45,18 +45,15 @@ const getMovieById = (req, res, next) => {
         })
 } 
 
-
-//TODO: CHANGE THIS TO BE USED FOR THE NEW SCHEMA
-
 const editMovie = (req, res, next) => {
     const { id } = req.params
-    const { nombre, poster, asientos, precio } = req.body
+    const { nombre, poster, horarios, precio } = req.body
 
-    if(nombre || poster || asientos || precio) {
+    if(nombre || poster || horarios || precio) {
         const editedNote = {
             nombre: nombre,
             img: poster,
-            asientos: asientos,
+            horarios: horarios,
             precio: precio
         }
         Movie.findByIdAndUpdate(id, editedNote)
