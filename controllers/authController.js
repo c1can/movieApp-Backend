@@ -48,7 +48,7 @@ const loginUser = async(req, res, next) => {
 
         const decrypt = await bcrypt.compare(contraseña, matchUser.contraseña)
 
-        if(decrypt) res.status(200).json(matchUser)
+        if(decrypt) return res.status(200).json(matchUser)
         return res.status(401).json({ error: 'contraseña invalida' })
       
     } catch (error) {

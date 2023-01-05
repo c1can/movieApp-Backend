@@ -9,7 +9,7 @@ const dbConnection = () => {
         .then(() => {
             console.log('Conectado!')
         })
-        .catch(() => console.log('Error'))
+        .catch(() => console.log('Error!'))
 }
 
 
