@@ -266,5 +266,21 @@ const movieAddition = (nombre, poster, precio) => {
     return newMovieHelper
 }
 
+const ReservarButaca = (asientos) => {
+    
+    const horarios = [
+        {
+            hora: '13:00',
+            asientos: asientos    
+        }
+    ]
 
-module.exports = {movieAddition}
+    const movieReservada = {
+        horarios: horarios
+    }
+
+    return movieReservada
+}
+
+
+module.exports = {movieAddition, ReservarButaca}

@@ -1,4 +1,4 @@
-const { getMovie, addMovie, getMovieById, editMovie, deleteMovie } = require('../controllers/movieControllers')
+const { getMovie, addMovie, getMovieById, reserveMovie, deleteMovie } = require('../controllers/movieControllers')
 const { registerUser, loginUser } = require('../controllers/authController')
 const { getClientes, editClientes, deleteCliente } = require('../controllers/clientesController')
 const validateRol = require('../middlewares/validateRol')
@@ -21,7 +21,7 @@ const routes = (app) => {
     app.get('/api/cartelera', getMovie)
     app.get('/api/cartelera/:id', getMovieById)
     app.post('/api/cartelera', auth, validateRol, addMovie)
-    app.put('/api/cartelera/:id', editMovie)
+    app.put('/api/cartelera/reservar/:id', reserveMovie)
     app.delete('/api/cartelera/:id', auth, validateRol, deleteMovie)
     //------HandleError----------
     app.use(pageNotFound)

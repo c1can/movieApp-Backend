@@ -1,4 +1,4 @@
-const { movieAddition } = require('../helpers/movieAddition')
+const { movieAddition, ReservarButaca } = require('../helpers/movieAddition')
 const { Movie } = require('../models/movieModel')
 
 
@@ -45,30 +45,33 @@ const getMovieById = (req, res, next) => {
         })
 } 
 
-
-//TODO: CHANGE NAME TO BE MORE SPECIFIC,
-//CAUSE IM USING THIS CONTROLLER FOR 
-//BUYING TICKETS NOT FOR EDITING MOVIES
-const editMovie = (req, res, next) => {
+const reserveMovie = (req, res, next) => {
     const { id } = req.params
-    const { nombre, poster, horarios, precio } = req.body
+    const body = req.body
 
-    if(nombre || poster || horarios || precio) {
-        const editedNote = {
-            nombre: nombre,
-            img: poster,
-            horarios: horarios,
-            precio: precio
-        }
-        Movie.findByIdAndUpdate(id, editedNote)
-            .then(result => {
-                return result
-                    ? res.status(200).json({ succes: 'asiento reservado!' })
-                    : res.status(404).json({error: 'id no encontrado'})
-            }).catch(next)
-        return
-    }
-    return res.status(400).json({ error: 'ingresa al menos un dato!' })
+    Movie.findById(id)
+        .then(response => {
+            const { horarios } = response
+            const a = horarios.map(horario => {
+                const { asientos } = horario
+                return asientos
+            })
+            const dbAsientos = a[0].map(x => x)
+
+
+            const reemplazados = dbAsientos.map(dbAsiento => {
+                const match = body.find(reemplazo => reemplazo.nm == dbAsiento.nm)
+
+                return match ? match : dbAsiento
+            })     
+
+            const butacasReservadas = ReservarButaca(reemplazados)
+
+            return Movie.findByIdAndUpdate(id, butacasReservadas)
+            
+        }).then(() => {
+            return res.status(200).json({success: 'Asientos Reservados!'})
+        }).catch(next)
 
 }
 
@@ -82,4 +85,4 @@ const deleteMovie = (req, res, next) => {
                 : res.status(404).json({error: 'id no encontrado'})
         }).catch(next)
 }
-module.exports = { getMovie, addMovie, getMovieById, editMovie, deleteMovie }
+module.exports = { getMovie, addMovie, getMovieById, reserveMovie, deleteMovie }
