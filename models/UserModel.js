@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
     contraseña: String,
     telefono: Number,
     rol: String,
+    reservaciones: Array,
     token: String,
     creditos: Number
 })
