@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 
-const reservationSchema = new mongoose.Schema({
+const billSchema = new mongoose.Schema({
     creacion: Date,
     butacas: Array,
     total: Number,
@@ -12,7 +12,7 @@ const reservationSchema = new mongoose.Schema({
 })
 
 
-const Reservation = mongoose.model('Reservation', reservationSchema)
+const Bill = mongoose.model('Bill', billSchema)
 
 
-module.exports = Reservation
+module.exports = Bill
