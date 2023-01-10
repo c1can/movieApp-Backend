@@ -25,8 +25,7 @@ const getBillById = (req, res, next) => {
 const addBill = async(req, res, next) => {
     const { butacas, total, userId } = req.body
 
-
-    if(!req.body) return res.status(400).end()
+    if(JSON.stringify(req.body) == '{}') return res.status(400).end()
 
     const foundUser = await User.findById(userId)
 

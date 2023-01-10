@@ -1,6 +1,6 @@
 const { getMovie, addMovie, getMovieById, reserveMovie, deleteMovie } = require('../controllers/movieControllers')
 const { registerUser, loginUser } = require('../controllers/authController')
-const { getClientes, editClientes, deleteCliente } = require('../controllers/clientesController')
+const { getClientes, editClientes, deleteCliente, getClienteById } = require('../controllers/clientesController')
 const { getBill, getBillById, addBill } = require('../controllers/billController')
 const validateRol = require('../middlewares/validateRol')
 const { handleError, pageNotFound } = require('../middlewares/errorMiddlewares')
@@ -16,7 +16,8 @@ const routes = (app) => {
     app.post('/api/login', loginUser)
     //------Clientes-------------
     app.get('/api/clientes', auth, validateRol, getClientes)
-    app.put('/api/clientes/:id',auth, validateRol, editClientes)
+    app.get('/api/clientes/:id', getClienteById)
+    app.put('/api/clientes/:id', editClientes)
     app.delete('/api/clientes/:id', auth, validateRol, deleteCliente)
     //-------Cartelera-----------
     app.get('/api/cartelera', getMovie)
