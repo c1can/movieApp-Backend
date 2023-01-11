@@ -11,10 +11,11 @@ const getBill = (req, res, next) => {
 }
 
 const getBillById = (req, res, next) => {
-    const { id } = req.params    
+    const { id } = req.params  //id = del usuario
 
-    Bill.findById(id)
+    Bill.find({user: id}) 
         .then(result => {
+            console.log(result)
             return !result 
                 ? res.status(400).end({error: 'id no encontrada'})
                 : res.status(200).json(result)
