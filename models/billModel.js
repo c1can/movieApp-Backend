@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 
 const billSchema = new mongoose.Schema({
-    fecha_reservacion: Date,
+    fecha_reservacion: String,
     butacas: Array,
     total: Number,
     user: {

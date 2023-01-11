@@ -15,7 +15,6 @@ const getBillById = (req, res, next) => {
 
     Bill.find({user: id}) 
         .then(result => {
-            console.log(result)
             return !result 
                 ? res.status(400).end({error: 'id no encontrada'})
                 : res.status(200).json(result)
@@ -31,7 +30,7 @@ const addBill = async(req, res, next) => {
     const foundUser = await User.findById(userId)
 
     const newBill = new Bill({
-        fecha_reservacion: new Date,
+        fecha_reservacion: new Date().toLocaleDateString(),
         butacas: butacas,
         total: total,
         user: foundUser._id
