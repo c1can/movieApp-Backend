@@ -23,7 +23,7 @@ const getBillById = (req, res, next) => {
 }
 
 const addBill = async(req, res, next) => {
-    const { butacas, total, userId } = req.body
+    const { butacas, total, pelicula, userId } = req.body
 
     if(JSON.stringify(req.body) == '{}') return res.status(400).end()
 
@@ -31,6 +31,7 @@ const addBill = async(req, res, next) => {
 
     const newBill = new Bill({
         fecha_reservacion: new Date().toLocaleDateString(),
+        pelicula: pelicula,
         butacas: butacas,
         total: total,
         user: foundUser._id
