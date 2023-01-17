@@ -7,9 +7,13 @@ const userSchema = new mongoose.Schema({
     contraseña: String,
     telefono: Number,
     rol: String,
-    reservaciones: Array,
     token: String,
-    creditos: Number
+    creditos: Number,
+    reservaciones: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Bill'
+        
+    }]
 })
 
 const User = mongoose.model('User', userSchema)

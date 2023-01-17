@@ -15,7 +15,7 @@ const routes = (app) => {
     app.post('/api/register', registerUser)
     app.post('/api/login', loginUser)
     //------Clientes-------------
-    app.get('/api/clientes', auth, validateRol, getClientes)
+    app.get('/api/clientes', getClientes)
     app.get('/api/clientes/:id', getClienteById)
     app.put('/api/clientes/:id', editClientes)
     app.delete('/api/clientes/:id', auth, validateRol, deleteCliente)
